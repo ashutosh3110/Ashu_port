@@ -94,7 +94,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 font-semibold uppercase">Phone / WhatsApp</div>
-                    <div className="text-xs font-bold text-white">+91 98765 43210</div>
+                    <div className="text-xs font-bold text-white">+91 6263510091</div>
                   </div>
                 </div>
               </div>

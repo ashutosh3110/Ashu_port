@@ -48,7 +48,7 @@ export default function StatsAndCodingSection() {
                   rel="noopener noreferrer"
                   className="text-xs font-semibold text-indigo-400 hover:underline flex items-center gap-1"
                 >
-                  <span>@ashutosh-verma</span>
+                  <span>@ashutosh-banke</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </div>
