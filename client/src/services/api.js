@@ -19,6 +19,9 @@ API.interceptors.request.use(
     }
     return config;
   },
+  (error) => Promise.reject(error)
+);
+
 // Response interceptor to handle expired / invalid tokens
 API.interceptors.response.use(
   (response) => response,
@@ -34,3 +37,4 @@ API.interceptors.response.use(
 );
 
 export default API;
+
