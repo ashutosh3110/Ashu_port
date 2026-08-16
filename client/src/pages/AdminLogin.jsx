@@ -55,7 +55,7 @@ export default function AdminLogin() {
                 <input
                   type="email"
                   required
-                  placeholder="admin@portfolio.com"
+                  placeholder="Enter admin email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
@@ -90,10 +90,6 @@ export default function AdminLogin() {
               )}
             </button>
           </form>
-
-          <div className="p-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-center text-[11px] text-indigo-300">
-            <strong>Default Credentials:</strong> admin@portfolio.com / admin123
-          </div>
         </GlassCard>
       </motion.div>
     </div>
