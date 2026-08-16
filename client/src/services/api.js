@@ -19,7 +19,18 @@ API.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+// Response interceptor to handle expired / invalid tokens
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('userInfo');
+      if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
+        window.location.href = '/admin/login';
+      }
+    }
+    return Promise.reject(error);
+  }
 );
 
 export default API;
