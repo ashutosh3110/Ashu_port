@@ -13,8 +13,28 @@ connectDB();
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// Configure CORS using CLIENT_URL from environment variables
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  'https://ashu-port-drab.vercel.app',
+  'http://localhost:3000',
+  'http://localhost:5173',
+].filter(Boolean);
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

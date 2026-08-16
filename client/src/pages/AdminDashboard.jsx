@@ -141,6 +141,7 @@ export default function AdminDashboard() {
   }, [user]);
 
   const [uploading, setUploading] = useState(false);
+  const [modalUploading, setModalUploading] = useState(false);
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -156,12 +157,35 @@ export default function AdminDashboard() {
       });
       if (res.data.success) {
         setProfileForm((prev) => ({ ...prev, avatar: res.data.imageUrl }));
-        toast.success('Photo uploaded from file successfully!');
+        toast.success('Photo uploaded and stored on server successfully!');
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'File upload failed');
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleModalFileUpload = async (e, fieldKey) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const data = new FormData();
+    data.append('image', file);
+
+    setModalUploading(true);
+    try {
+      const res = await API.post('/upload', data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      if (res.data.success) {
+        setFormData((prev) => ({ ...prev, [fieldKey]: res.data.imageUrl }));
+        toast.success('Image uploaded and stored on server!');
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'File upload failed');
+    } finally {
+      setModalUploading(false);
     }
   };
 
@@ -482,15 +506,45 @@ export default function AdminDashboard() {
                 <form onSubmit={handleFormSubmit} className="space-y-3">
                   {Object.keys(formData).map((key) => {
                     if (key === '_id' || key === 'createdAt' || key === 'updatedAt' || key === '__v') return null;
+                    const isImageField = key === 'image' || key === 'coverImage' || key === 'avatar';
                     return (
-                      <div key={key}>
-                        <label className="block text-xs font-semibold text-slate-300 capitalize mb-1">{key}</label>
-                        <input
-                          type="text"
-                          value={formData[key]}
-                          onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
-                          className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white"
-                        />
+                      <div key={key} className="space-y-1">
+                        <label className="block text-xs font-semibold text-slate-300 capitalize">{key}</label>
+                        {isImageField ? (
+                          <div className="space-y-2">
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={formData[key] || ''}
+                                placeholder="Upload image below or enter URL"
+                                onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+                                className="flex-1 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white"
+                              />
+                              <label className="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center space-x-1.5 cursor-pointer transition-all shrink-0">
+                                <Upload className="w-3.5 h-3.5" />
+                                <span>{modalUploading ? 'Uploading...' : 'Upload Image'}</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => handleModalFileUpload(e, key)}
+                                  className="hidden"
+                                />
+                              </label>
+                            </div>
+                            {formData[key] && (
+                              <div className="w-24 h-24 rounded-lg overflow-hidden border border-slate-800 relative bg-slate-900">
+                                <img src={formData[key]} alt="Preview" className="w-full h-full object-cover" />
+                              </div>
+                            )}
+                          </div>
+                        ) : (
+                          <input
+                            type="text"
+                            value={formData[key] || ''}
+                            onChange={(e) => setFormData({ ...formData, [key]: e.target.value })}
+                            className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white"
+                          />
+                        )}
                       </div>
                     );
                   })}
