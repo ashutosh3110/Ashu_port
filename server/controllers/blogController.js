@@ -1,8 +1,7 @@
 const Blog = require('../models/Blog');
 
-const sampleBlogs = [
+const initialBlogs = [
   {
-    _id: 'blog-1',
     title: 'Mastering React 19: Actions, Optimistic UI & Server Components',
     slug: 'mastering-react-19-actions-and-optimistic-ui',
     excerpt: 'Explore the latest features in React 19 including native async transition hooks, useOptimistic, useFormStatus, and seamless state integration.',
@@ -21,10 +20,8 @@ Scripts, stylesheets, and fonts are now automatically hoisted and deduplicated b
     readTime: '6 min read',
     coverImage: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1200&auto=format&fit=crop',
     isPublished: true,
-    createdAt: new Date(),
   },
   {
-    _id: 'blog-2',
     title: 'Building Scalable RESTful APIs with Node.js, Express & MongoDB',
     slug: 'building-scalable-rest-apis-node-express-mongodb',
     excerpt: 'A comprehensive guide to designing clean MVC architectures, indexing MongoDB collections, using JWT middleware, and handling errors gracefully.',
@@ -39,10 +36,8 @@ Scripts, stylesheets, and fonts are now automatically hoisted and deduplicated b
     readTime: '8 min read',
     coverImage: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop',
     isPublished: true,
-    createdAt: new Date(),
   },
   {
-    _id: 'blog-3',
     title: 'Tailwind CSS v4: What Developers Need to Know',
     slug: 'tailwind-css-v4-features-and-performance',
     excerpt: 'Discover the new Rust-based Oxide engine, zero-config CSS configuration, native CSS variables, and blistering fast build speeds.',
@@ -57,38 +52,46 @@ Scripts, stylesheets, and fonts are now automatically hoisted and deduplicated b
     readTime: '4 min read',
     coverImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=1200&auto=format&fit=crop',
     isPublished: true,
-    createdAt: new Date(),
   },
 ];
 
+const ensureInitialBlogs = async () => {
+  try {
+    const count = await Blog.countDocuments();
+    if (count === 0) {
+      await Blog.insertMany(initialBlogs);
+    }
+  } catch (err) {
+    console.error('Error auto-seeding blogs:', err.message);
+  }
+};
+
 const getBlogs = async (req, res) => {
   try {
+    await ensureInitialBlogs();
     const blogs = await Blog.find({ isPublished: true }).sort({ createdAt: -1 });
-    if (!blogs || blogs.length === 0) {
-      return res.json({ success: true, count: sampleBlogs.length, data: sampleBlogs });
-    }
     res.json({ success: true, count: blogs.length, data: blogs });
   } catch (error) {
-    res.json({ success: true, count: sampleBlogs.length, data: sampleBlogs });
+    res.json({ success: true, count: initialBlogs.length, data: initialBlogs });
   }
 };
 
 const getBlogBySlug = async (req, res) => {
   try {
+    await ensureInitialBlogs();
     const blog = await Blog.findOne({ slug: req.params.slug });
     if (!blog) {
-      const sample = sampleBlogs.find((b) => b.slug === req.params.slug) || sampleBlogs[0];
-      return res.json({ success: true, data: sample });
+      return res.status(404).json({ success: false, message: 'Blog not found' });
     }
     res.json({ success: true, data: blog });
   } catch (error) {
-    const sample = sampleBlogs.find((b) => b.slug === req.params.slug) || sampleBlogs[0];
-    res.json({ success: true, data: sample });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
 const createBlog = async (req, res) => {
   try {
+    await ensureInitialBlogs();
     const { title, slug, excerpt, content, category, tags, readTime, coverImage, isPublished } = req.body;
     const generatedSlug = slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 

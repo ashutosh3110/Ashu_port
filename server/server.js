@@ -62,9 +62,22 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`\n==================================================`);
-  console.log(`🚀 Portfolio Backend Server running on port ${PORT}`);
-  console.log(`📡 Health Check: http://localhost:${PORT}/api/health`);
-  console.log(`==================================================\n`);
-});
+const startServer = (portToUse) => {
+  const server = app.listen(portToUse, () => {
+    console.log(`\n==================================================`);
+    console.log(`🚀 Portfolio Backend Server running on port ${portToUse}`);
+    console.log(`📡 Health Check: http://localhost:${portToUse}/api/health`);
+    console.log(`==================================================\n`);
+  });
+
+  server.on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log(`⚠️ Port ${portToUse} is in use. Trying port ${Number(portToUse) + 1}...`);
+      startServer(Number(portToUse) + 1);
+    } else {
+      console.error('Server error:', err);
+    }
+  });
+};
+
+startServer(PORT);

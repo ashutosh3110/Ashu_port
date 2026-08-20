@@ -1,8 +1,7 @@
 const Experience = require('../models/Experience');
 
-const sampleExperience = [
+const initialExperience = [
   {
-    _id: 'exp-1',
     title: 'Backend / Full Stack Developer',
     company: 'Appzeto Private Limited',
     location: 'On-Site',
@@ -19,7 +18,6 @@ const sampleExperience = [
     order: 1,
   },
   {
-    _id: 'exp-2',
     title: 'Master of Computer Applications (MCA)',
     company: 'Medi-Caps University',
     location: 'Indore, MP',
@@ -35,7 +33,6 @@ const sampleExperience = [
     order: 2,
   },
   {
-    _id: 'exp-3',
     title: 'Bachelor of Computer Applications (BCA)',
     company: 'Career College',
     location: 'Bhopal, MP',
@@ -52,20 +49,30 @@ const sampleExperience = [
   },
 ];
 
+const ensureInitialExperience = async () => {
+  try {
+    const count = await Experience.countDocuments();
+    if (count === 0) {
+      await Experience.insertMany(initialExperience);
+    }
+  } catch (err) {
+    console.error('Error auto-seeding experience:', err.message);
+  }
+};
+
 const getExperiences = async (req, res) => {
   try {
+    await ensureInitialExperience();
     const experiences = await Experience.find().sort({ order: 1, createdAt: -1 });
-    if (!experiences || experiences.length === 0) {
-      return res.json({ success: true, count: sampleExperience.length, data: sampleExperience });
-    }
     res.json({ success: true, count: experiences.length, data: experiences });
   } catch (error) {
-    res.json({ success: true, count: sampleExperience.length, data: sampleExperience });
+    res.json({ success: true, count: initialExperience.length, data: initialExperience });
   }
 };
 
 const createExperience = async (req, res) => {
   try {
+    await ensureInitialExperience();
     const { title, company, location, type, startDate, endDate, current, description, highlights, order } = req.body;
     const experience = new Experience({
       title,

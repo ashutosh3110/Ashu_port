@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 const User = require('../models/User');
 
 const protect = async (req, res, next) => {
@@ -11,13 +12,17 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, secret);
       
       try {
-        req.user = await User.findById(decoded.id).select('-password');
+        if (decoded.id && mongoose.Types.ObjectId.isValid(decoded.id)) {
+          req.user = await User.findById(decoded.id).select('-password');
+        } else {
+          req.user = null;
+        }
       } catch (e) {
         req.user = null;
       }
 
       if (!req.user && decoded.id) {
-        req.user = { id: decoded.id, name: 'Admin', email: decoded.email || 'admin@portfolio.com', role: 'admin' };
+        req.user = { _id: decoded.id, id: decoded.id, name: 'Admin', email: decoded.email || 'admin@portfolio.com', role: 'admin' };
       }
 
       if (!req.user) {

@@ -34,13 +34,13 @@ const loginUser = async (req, res) => {
       return res.json({
         success: true,
         user: {
-          _id: 'default-admin-id-12345',
+          _id: '65f1a2b3c4d5e6f7a8b9c0d1',
           name: 'Ashutosh Banke',
           email: 'admin@portfolio.com',
           role: 'admin',
           avatar: '',
           bio: 'Full Stack MERN Developer',
-          token: generateToken('default-admin-id-12345', 'admin@portfolio.com'),
+          token: generateToken('65f1a2b3c4d5e6f7a8b9c0d1', 'admin@portfolio.com'),
         },
       });
     }
@@ -53,13 +53,13 @@ const loginUser = async (req, res) => {
       return res.json({
         success: true,
         user: {
-          _id: 'default-admin-id-12345',
+          _id: '65f1a2b3c4d5e6f7a8b9c0d1',
           name: 'Ashutosh Banke',
           email: 'admin@portfolio.com',
           role: 'admin',
           avatar: '',
           bio: 'Full Stack MERN Developer',
-          token: generateToken('default-admin-id-12345', 'admin@portfolio.com'),
+          token: generateToken('65f1a2b3c4d5e6f7a8b9c0d1', 'admin@portfolio.com'),
         },
       });
     }

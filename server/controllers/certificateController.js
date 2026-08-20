@@ -1,8 +1,7 @@
 const Certificate = require('../models/Certificate');
 
-const sampleCertificates = [
+const initialCertificates = [
   {
-    _id: 'cert-1',
     title: 'Cloud Computing Certification',
     issuer: 'NPTEL (IIT Kharagpur / MoE)',
     issueDate: '2024',
@@ -12,20 +11,30 @@ const sampleCertificates = [
   },
 ];
 
+const ensureInitialCertificates = async () => {
+  try {
+    const count = await Certificate.countDocuments();
+    if (count === 0) {
+      await Certificate.insertMany(initialCertificates);
+    }
+  } catch (err) {
+    console.error('Error auto-seeding certificates:', err.message);
+  }
+};
+
 const getCertificates = async (req, res) => {
   try {
+    await ensureInitialCertificates();
     const certificates = await Certificate.find().sort({ order: 1, createdAt: -1 });
-    if (!certificates || certificates.length === 0) {
-      return res.json({ success: true, count: sampleCertificates.length, data: sampleCertificates });
-    }
     res.json({ success: true, count: certificates.length, data: certificates });
   } catch (error) {
-    res.json({ success: true, count: sampleCertificates.length, data: sampleCertificates });
+    res.json({ success: true, count: initialCertificates.length, data: initialCertificates });
   }
 };
 
 const createCertificate = async (req, res) => {
   try {
+    await ensureInitialCertificates();
     const { title, issuer, issueDate, credentialUrl, image, order } = req.body;
     const certificate = new Certificate({ title, issuer, issueDate, credentialUrl, image, order });
     const createdCert = await certificate.save();
