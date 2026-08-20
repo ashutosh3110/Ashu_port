@@ -126,7 +126,7 @@ export default function AdminDashboard() {
   // Profile State
   const [profileForm, setProfileForm] = useState({
     name: user?.name || 'Ashutosh Banke',
-    avatar: user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+    avatar: user?.avatar || '',
     bio: user?.bio || 'Full Stack MERN Developer',
   });
 
@@ -134,7 +134,7 @@ export default function AdminDashboard() {
     if (user) {
       setProfileForm({
         name: user.name || 'Ashutosh Banke',
-        avatar: user.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+        avatar: user.avatar || '',
         bio: user.bio || 'Full Stack MERN Developer',
       });
     }
@@ -410,12 +410,19 @@ export default function AdminDashboard() {
               <h3 className="text-lg font-bold text-white border-b border-slate-800 pb-3">Admin Profile & Avatar Settings</h3>
 
               <div className="flex flex-col sm:flex-row items-center gap-6 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-                <div className="relative w-28 h-28 rounded-2xl overflow-hidden border-2 border-indigo-500/50 shadow-lg">
-                  <img
-                    src={profileForm.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop'}
-                    alt="Admin Profile Preview"
-                    className="w-full h-full object-cover"
-                  />
+                <div className="relative w-28 h-28 rounded-2xl overflow-hidden border-2 border-indigo-500/50 shadow-lg flex items-center justify-center bg-slate-900">
+                  {profileForm.avatar ? (
+                    <img
+                      src={profileForm.avatar}
+                      alt="Admin Profile Preview"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-tr from-indigo-600 to-purple-600 flex flex-col items-center justify-center text-white font-extrabold text-2xl">
+                      <span>AB</span>
+                      <span className="text-[9px] font-normal text-indigo-200 mt-0.5">No Image</span>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-1 text-center sm:text-left">
                   <h4 className="text-base font-bold text-white">{profileForm.name}</h4>

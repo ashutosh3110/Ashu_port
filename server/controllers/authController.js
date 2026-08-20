@@ -38,7 +38,7 @@ const loginUser = async (req, res) => {
           name: 'Ashutosh Banke',
           email: 'admin@portfolio.com',
           role: 'admin',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+          avatar: '',
           bio: 'Full Stack MERN Developer',
           token: generateToken('default-admin-id-12345', 'admin@portfolio.com'),
         },
@@ -57,7 +57,7 @@ const loginUser = async (req, res) => {
           name: 'Ashutosh Banke',
           email: 'admin@portfolio.com',
           role: 'admin',
-          avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+          avatar: '',
           bio: 'Full Stack MERN Developer',
           token: generateToken('default-admin-id-12345', 'admin@portfolio.com'),
         },
@@ -94,7 +94,7 @@ const getPublicProfile = async (req, res) => {
       success: true,
       profile: {
         name: 'Ashutosh Banke',
-        avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+        avatar: '',
         bio: 'Full Stack MERN Developer',
       },
     });

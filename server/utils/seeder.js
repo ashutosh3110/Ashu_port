@@ -35,7 +35,7 @@ const seedData = async () => {
       password: 'admin123', // will be hashed by pre-save hook
       role: 'admin',
       bio: 'Full Stack MERN Developer passionate about modern UI/UX and scalable architectures with 1 year of experience.',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop',
+      avatar: '',
     });
     console.log('Admin User Created: admin@portfolio.com / admin123');
 

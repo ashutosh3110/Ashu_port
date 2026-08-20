@@ -36,7 +36,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, [typedText, isDeleting, roleIndex]);
 
-  const [profileAvatar, setProfileAvatar] = useState('https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800&auto=format&fit=crop');
+  const [profileAvatar, setProfileAvatar] = useState('');
 
   // Fetch Public Profile & Visitor Counter API
   useEffect(() => {
@@ -169,30 +169,71 @@ export default function HeroSection() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96"
+              className="relative w-full max-w-md"
             >
               {/* Outer Glowing Rings */}
               <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 blur-2xl opacity-40 animate-pulse" />
 
-              {/* Main Avatar Card */}
-              <div className="relative w-full h-full rounded-3xl overflow-hidden glass-card border border-slate-700/50 shadow-2xl p-3 flex flex-col justify-between">
-                <img
-                  src={profileAvatar}
-                  alt="Ashutosh Banke Profile"
-                  className="w-full h-full object-cover rounded-2xl filter brightness-105 contrast-105"
-                />
+              {profileAvatar ? (
+                /* Main Avatar Card (when custom image is set) */
+                <div className="relative w-full h-80 sm:h-96 rounded-3xl overflow-hidden glass-card border border-slate-700/50 shadow-2xl p-3 flex flex-col justify-between">
+                  <img
+                    src={profileAvatar}
+                    alt="Ashutosh Banke Profile"
+                    className="w-full h-full object-cover rounded-2xl filter brightness-105 contrast-105"
+                  />
 
-                {/* Floating Overlay Badge */}
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-slate-800 flex items-center justify-between shadow-xl">
-                  <div>
-                    <h4 className="text-sm font-bold text-white">Ashutosh Banke</h4>
-                    <p className="text-xs text-indigo-400 font-medium">MERN Architect</p>
-                  </div>
-                  <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
-                    <Sparkles className="w-5 h-5" />
+                  {/* Floating Overlay Badge */}
+                  <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-slate-950/85 backdrop-blur-xl border border-slate-800 flex items-center justify-between shadow-xl">
+                    <div>
+                      <h4 className="text-sm font-bold text-white">Ashutosh Banke</h4>
+                      <p className="text-xs text-indigo-400 font-medium">MERN Architect</p>
+                    </div>
+                    <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                /* Sleek Code / Developer Card (when no profile image is set) */
+                <div className="relative w-full rounded-3xl overflow-hidden glass-card border border-slate-700/50 shadow-2xl p-6 space-y-4">
+                  {/* macOS Terminal Header */}
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                      <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                    </div>
+                    <span className="text-xs font-mono text-slate-400">developer.config.ts</span>
+                  </div>
+
+                  {/* Dynamic Code Preview */}
+                  <div className="font-mono text-xs text-slate-300 space-y-2 leading-relaxed bg-slate-950/80 p-4 rounded-2xl border border-slate-800/80 shadow-inner">
+                    <div><span className="text-purple-400">const</span> <span className="text-yellow-300">developer</span> = &#123;</div>
+                    <div className="pl-4"><span className="text-indigo-400">name</span>: <span className="text-emerald-400">'Ashutosh Banke'</span>,</div>
+                    <div className="pl-4"><span className="text-indigo-400">role</span>: <span className="text-emerald-400">'Full Stack Architect'</span>,</div>
+                    <div className="pl-4"><span className="text-indigo-400">stack</span>: [<span className="text-cyan-400">'React 19'</span>, <span className="text-cyan-400">'Node.js'</span>, <span className="text-cyan-400">'MongoDB'</span>],</div>
+                    <div className="pl-4"><span className="text-indigo-400">status</span>: <span className="text-emerald-400">'Ready for hire 🚀'</span></div>
+                    <div>&#125;;</div>
+                  </div>
+
+                  {/* Profile Info Badge */}
+                  <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between shadow-xl">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+                        AB
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-bold text-white">Ashutosh Banke</h4>
+                        <p className="text-xs text-indigo-400 font-medium">MERN Stack Developer</p>
+                      </div>
+                    </div>
+                    <div className="p-2 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </div>
 
