@@ -62,7 +62,7 @@ export default function ProjectsSection() {
                 className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all duration-200 ${
                   selectedCategory === cat
                     ? 'bg-indigo-600 text-white shadow-md shadow-indigo-500/20'
-                    : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                    : 'bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 shadow-sm'
                 }`}
               >
                 {cat}
@@ -72,13 +72,13 @@ export default function ProjectsSection() {
 
           {/* Search Input */}
           <div className="relative w-full md:w-72">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-slate-500" />
             <input
               type="text"
               placeholder="Search by title or tech..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors shadow-sm"
             />
           </div>
         </div>
@@ -114,10 +114,10 @@ export default function ProjectsSection() {
                   {/* Body Content */}
                   <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                     <div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-indigo-400 transition-colors mb-2">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                      <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
                         {project.description}
                       </p>
                     </div>
@@ -127,7 +127,7 @@ export default function ProjectsSection() {
                       {project.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-[10px] font-medium text-slate-300"
+                          className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-semibold text-slate-700 dark:text-slate-300"
                         >
                           {tech}
                         </span>
@@ -135,7 +135,7 @@ export default function ProjectsSection() {
                     </div>
 
                     {/* Action Links */}
-                    <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
                       <button
                         onClick={() => setSelectedProjectModal(project)}
                         className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
@@ -153,7 +153,7 @@ export default function ProjectsSection() {
                               e.stopPropagation();
                               addLog('INFO', 'LINK', `GitHub Link clicked: ${project.title} -> ${formatUrl(project.githubLink)}`);
                             }}
-                            className="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
+                            className="p-2.5 rounded-lg bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 transition-colors"
                             title="GitHub Source"
                           >
                             <Github className="w-4 h-4" />
@@ -168,7 +168,7 @@ export default function ProjectsSection() {
                               e.stopPropagation();
                               addLog('INFO', 'LINK', `Live Link clicked: ${project.title} -> ${formatUrl(project.liveLink)}`);
                             }}
-                            className="p-2.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 transition-colors"
+                            className="p-2.5 rounded-lg bg-indigo-600/10 dark:bg-indigo-600/20 hover:bg-indigo-600/20 dark:hover:bg-indigo-600/30 text-indigo-600 dark:text-indigo-400 border border-indigo-500/30 transition-colors"
                             title="Live Demo"
                           >
                             <ExternalLink className="w-4 h-4" />
@@ -200,7 +200,7 @@ export default function ProjectsSection() {
               >
                 <button
                   onClick={() => setSelectedProjectModal(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white"
+                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-900 dark:hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -208,31 +208,31 @@ export default function ProjectsSection() {
                 <img
                   src={selectedProjectModal.image}
                   alt={selectedProjectModal.title}
-                  className="w-full h-56 object-cover rounded-xl border border-slate-800"
+                  className="w-full h-56 object-cover rounded-xl border border-slate-200 dark:border-slate-800"
                 />
 
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
-                    <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-400">
+                    <span className="px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-bold text-indigo-600 dark:text-indigo-400">
                       {selectedProjectModal.category}
                     </span>
                   </div>
-                  <h3 className="text-2xl font-bold text-white">{selectedProjectModal.title}</h3>
-                  <p className="text-sm text-slate-300 leading-relaxed">{selectedProjectModal.description}</p>
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{selectedProjectModal.title}</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{selectedProjectModal.description}</p>
                 </div>
 
                 <div>
-                  <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Technologies Used</h4>
+                  <h4 className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Technologies Used</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProjectModal.technologies.map((t) => (
-                      <span key={t} className="px-3 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs text-indigo-300">
+                      <span key={t} className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-indigo-600 dark:text-indigo-300">
                         {t}
                       </span>
                     ))}
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 pt-4 border-t border-slate-800">
+                <div className="flex items-center space-x-4 pt-4 border-t border-slate-200 dark:border-slate-800">
                   {selectedProjectModal.liveLink && (
                     <a
                       href={formatUrl(selectedProjectModal.liveLink)}
@@ -242,7 +242,7 @@ export default function ProjectsSection() {
                         e.stopPropagation();
                         addLog('INFO', 'LINK', `Modal Live Preview clicked: ${selectedProjectModal.title} -> ${formatUrl(selectedProjectModal.liveLink)}`);
                       }}
-                      className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center space-x-2"
+                      className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center space-x-2 shadow-md shadow-indigo-500/20"
                     >
                       <ExternalLink className="w-4 h-4" />
                       <span>Live Preview</span>
@@ -257,7 +257,7 @@ export default function ProjectsSection() {
                         e.stopPropagation();
                         addLog('INFO', 'LINK', `Modal View Code clicked: ${selectedProjectModal.title} -> ${formatUrl(selectedProjectModal.githubLink)}`);
                       }}
-                      className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold text-xs flex items-center space-x-2"
+                      className="px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-800 font-semibold text-xs flex items-center space-x-2"
                     >
                       <Github className="w-4 h-4" />
                       <span>View Code</span>

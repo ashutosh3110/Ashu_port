@@ -60,24 +60,24 @@ export default function AboutSection() {
           >
             <GlassCard className="relative overflow-hidden p-8 space-y-6">
               <div className="flex items-center space-x-4">
-                <div className="p-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                <div className="p-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400">
                   <Sparkles className="w-6 h-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white">Ashutosh Banke</h3>
-                  <p className="text-sm text-slate-400">Senior MERN Stack Engineer</p>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">Ashutosh Banke</h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">Senior MERN Stack Engineer</p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                 I specialize in turning complex requirements into clean, scalable software architecture. With deep expertise across the entire MERN stack, I build systems that perform exceptionally under high load while delivering smooth user experiences.
               </p>
 
               <div className="grid grid-cols-2 gap-4 pt-2">
                 {stats.map((s, idx) => (
-                  <div key={idx} className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center">
+                  <div key={idx} className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
                     <div className="text-2xl font-extrabold gradient-text">{s.value}</div>
-                    <div className="text-xs text-slate-400 font-medium mt-1">{s.label}</div>
+                    <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -97,11 +97,11 @@ export default function AboutSection() {
                   transition={{ delay: index * 0.1 }}
                 >
                   <GlassCard className="h-full space-y-4">
-                    <div className={`p-3 w-fit rounded-xl bg-slate-900 border border-slate-800 ${item.color}`}>
+                    <div className={`p-3 w-fit rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 ${item.color}`}>
                       <IconComp className="w-6 h-6" />
                     </div>
-                    <h4 className="text-lg font-bold text-white">{item.title}</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+                    <h4 className="text-lg font-bold text-slate-900 dark:text-white">{item.title}</h4>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
                   </GlassCard>
                 </motion.div>
               );

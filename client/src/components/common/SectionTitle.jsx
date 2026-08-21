@@ -9,7 +9,7 @@ export default function SectionTitle({ badge, title, highlight, subtitle }) {
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-400 tracking-wide uppercase"
+          className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-600 dark:text-indigo-400 tracking-wide uppercase"
         >
           <span>{badge}</span>
         </motion.div>
@@ -20,7 +20,7 @@ export default function SectionTitle({ badge, title, highlight, subtitle }) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight"
+        className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight"
       >
         {title}{' '}
         {highlight && <span className="gradient-text">{highlight}</span>}
@@ -32,7 +32,7 @@ export default function SectionTitle({ badge, title, highlight, subtitle }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-base sm:text-lg text-slate-400 font-normal max-w-2xl mx-auto"
+          className="text-base sm:text-lg text-slate-600 dark:text-slate-400 font-normal max-w-2xl mx-auto"
         >
           {subtitle}
         </motion.p>

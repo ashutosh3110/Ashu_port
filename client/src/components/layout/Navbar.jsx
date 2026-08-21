@@ -46,7 +46,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'py-3 bg-slate-950/80 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/60 shadow-xl shadow-black/10'
+          ? 'py-3 bg-white/90 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800/60 shadow-md'
           : 'py-5 bg-transparent'
       }`}
     >
@@ -64,13 +64,13 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Links */}
-        <nav className="hidden lg:flex items-center space-x-1 px-4 py-1.5 rounded-full bg-slate-900/40 dark:bg-slate-900/60 backdrop-blur-md border border-slate-800/50">
+        <nav className="hidden lg:flex items-center space-x-1 px-4 py-1.5 rounded-full bg-slate-100/90 dark:bg-slate-900/60 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/50 shadow-sm">
           {navLinks.map((item) => (
             <a
               key={item.name}
               href={item.href}
               onClick={(e) => handleNavClick(e, item)}
-              className="px-3.5 py-1.5 rounded-full text-xs font-medium text-slate-300 hover:text-white hover:bg-slate-800/60 transition-all duration-200"
+              className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all duration-200"
             >
               {item.name}
             </a>
@@ -85,8 +85,8 @@ export default function Navbar() {
             title={cursorEnabled ? 'Disable Custom Cursor' : 'Enable Custom Cursor'}
             className={`p-2 rounded-xl border transition-all duration-200 ${
               cursorEnabled
-                ? 'border-indigo-500/40 text-indigo-400 bg-indigo-500/10'
-                : 'border-slate-800 text-slate-400 hover:text-white hover:bg-slate-900'
+                ? 'border-indigo-500/40 text-indigo-600 dark:text-indigo-400 bg-indigo-500/10'
+                : 'border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900'
             }`}
           >
             <MousePointer className="w-4 h-4" />
@@ -96,9 +96,9 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             aria-label="Toggle Theme"
-            className="p-2 rounded-xl border border-slate-800 text-slate-300 hover:text-white hover:bg-slate-900 transition-all duration-200"
+            className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 shadow-sm"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-400" />}
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
 
           {/* Admin Panel Button */}
@@ -115,14 +115,14 @@ export default function Navbar() {
         <div className="flex sm:hidden items-center space-x-2">
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-lg border border-slate-800 text-slate-300"
+            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-400" />}
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
           </button>
 
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg border border-slate-800 text-slate-300"
+            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -136,7 +136,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="sm:hidden bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 px-4 pt-3 pb-6"
+            className="sm:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800/80 px-4 pt-3 pb-6 shadow-lg"
           >
             <div className="flex flex-col space-y-2">
               {navLinks.map((item) => (
@@ -144,12 +144,12 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item)}
-                  className="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-300 hover:bg-slate-900 hover:text-white"
+                  className="px-4 py-2.5 rounded-lg text-sm font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900 hover:text-indigo-600 dark:hover:text-white"
                 >
                   {item.name}
                 </a>
               ))}
-              <div className="pt-2 flex items-center justify-between border-t border-slate-800/80">
+              <div className="pt-2 flex items-center justify-between border-t border-slate-200 dark:border-slate-800/80">
                 <Link
                   to={isAdmin ? '/admin/dashboard' : '/admin/login'}
                   onClick={() => setMobileMenuOpen(false)}

@@ -62,7 +62,7 @@ export default function SkillsSection() {
               className={`px-5 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 ${
                 activeCategory === cat
                   ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/20'
-                  : 'bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800'
+                  : 'bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white border border-slate-200 dark:border-slate-800 shadow-sm'
               }`}
             >
               {cat}
@@ -84,16 +84,16 @@ export default function SkillsSection() {
                 <GlassCard className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
-                      <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                      <div className="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-600 dark:text-indigo-400">
                         <IconComponent className="w-5 h-5" />
                       </div>
-                      <span className="text-sm font-bold text-white">{skill.name}</span>
+                      <span className="text-sm font-bold text-slate-900 dark:text-white">{skill.name}</span>
                     </div>
-                    <span className="text-xs font-semibold text-indigo-400">{skill.proficiency}%</span>
+                    <span className="text-xs font-semibold text-indigo-600 dark:text-indigo-400">{skill.proficiency}%</span>
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="h-2 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                  <div className="h-2 w-full bg-slate-200 dark:bg-slate-900 rounded-full overflow-hidden border border-slate-300 dark:border-slate-800">
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${skill.proficiency}%` }}

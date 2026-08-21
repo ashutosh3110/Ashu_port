@@ -48,29 +48,29 @@ export default function ExperienceSection() {
                 className="relative group"
               >
                 {/* Timeline Dot Icon */}
-                <div className="absolute -left-[31px] sm:-left-[47px] top-1 p-2 rounded-full bg-slate-950 border-2 border-indigo-500 text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200">
+                <div className="absolute -left-[31px] sm:-left-[47px] top-1 p-2 rounded-full bg-white dark:bg-slate-950 border-2 border-indigo-600 dark:border-indigo-500 text-indigo-600 dark:text-indigo-400 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-200 shadow-sm">
                   {isEducation ? <GraduationCap className="w-4 h-4" /> : <Briefcase className="w-4 h-4" />}
                 </div>
 
                 {/* Left Date Label for Desktop */}
                 <div className="hidden sm:block absolute -left-36 top-1.5 text-right w-24">
-                  <span className="text-xs font-bold text-indigo-400 block">{item.startDate}</span>
-                  <span className="text-[10px] text-slate-500 block">{item.endDate}</span>
+                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 block">{item.startDate}</span>
+                  <span className="text-[10px] text-slate-500 block font-medium">{item.endDate}</span>
                 </div>
 
                 <GlassCard className="space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-xs font-medium text-slate-400 flex items-center space-x-2">
+                      <p className="text-xs font-medium text-slate-600 dark:text-slate-400 flex items-center space-x-2">
                         <span>{item.company}</span>
                         {item.location && (
                           <>
                             <span>•</span>
                             <span className="flex items-center gap-1">
-                              <MapPin className="w-3 h-3 text-slate-500" />
+                              <MapPin className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                               {item.location}
                             </span>
                           </>
@@ -78,18 +78,18 @@ export default function ExperienceSection() {
                       </p>
                     </div>
 
-                    <span className="px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-[10px] font-semibold text-indigo-400 sm:hidden">
+                    <span className="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 sm:hidden">
                       {item.startDate} - {item.endDate}
                     </span>
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed">{item.description}</p>
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">{item.description}</p>
 
                   {item.highlights && item.highlights.length > 0 && (
-                    <ul className="space-y-1.5 pt-2 border-t border-slate-800/80">
+                    <ul className="space-y-1.5 pt-2 border-t border-slate-200 dark:border-slate-800/80">
                       {item.highlights.map((h, i) => (
-                        <li key={i} className="text-xs text-slate-400 flex items-start space-x-2">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 mt-0.5 shrink-0" />
+                        <li key={i} className="text-xs text-slate-600 dark:text-slate-400 flex items-start space-x-2">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 mt-0.5 shrink-0" />
                           <span>{h}</span>
                         </li>
                       ))}

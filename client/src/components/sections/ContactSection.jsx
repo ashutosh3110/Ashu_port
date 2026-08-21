@@ -59,42 +59,42 @@ export default function ContactSection() {
           <div className="lg:col-span-5 space-y-6">
             <GlassCard className="space-y-6">
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-white">Contact Information</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Contact Information</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                   Feel free to reach out via the form or through social channels. I usually respond within 24 hours.
                 </p>
               </div>
 
               <div className="space-y-4 pt-2">
-                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400">
+                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
                     <Mail className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 font-semibold uppercase">Email</div>
-                    <a href="mailto:ashutosh@portfolio.com" className="text-xs font-bold text-white hover:text-indigo-400">
-                      ashutosh@portfolio.com
+                    <a href="mailto:ashutoshbankey21306@gmail.com" className="text-xs font-bold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400">
+                      ashutoshbankey21306@gmail.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="p-2.5 rounded-lg bg-purple-500/10 text-purple-400">
+                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-purple-500/10 text-purple-600 dark:text-purple-400">
                     <MapPin className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 font-semibold uppercase">Location</div>
-                    <div className="text-xs font-bold text-white">Bangalore / Remote Worldwide</div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-white">Indore / Bhopal / Remote</div>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                  <div className="p-2.5 rounded-lg bg-pink-500/10 text-pink-400">
+                <div className="flex items-center space-x-4 p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-sm">
+                  <div className="p-2.5 rounded-lg bg-pink-500/10 text-pink-600 dark:text-pink-400">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-[10px] text-slate-500 font-semibold uppercase">Phone / WhatsApp</div>
-                    <div className="text-xs font-bold text-white">+91 6263510091</div>
+                    <div className="text-xs font-bold text-slate-900 dark:text-white">+91 6263510091</div>
                   </div>
                 </div>
               </div>
@@ -106,16 +106,16 @@ export default function ContactSection() {
             <GlassCard className="p-8">
               {submitted ? (
                 <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mx-auto">
+                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 flex items-center justify-center mx-auto">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Message Delivered!</h3>
-                  <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Message Delivered!</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 max-w-sm mx-auto font-medium">
                     Thank you for reaching out. A confirmation email has been logged and I will review your inquiry shortly.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-semibold text-white border border-slate-800"
+                    className="px-6 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-xs font-semibold text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 shadow-sm"
                   >
                     Send Another Message
                   </button>
@@ -124,7 +124,7 @@ export default function ContactSection() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-2">Your Name *</label>
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Your Name *</label>
                       <input
                         type="text"
                         name="name"
@@ -132,12 +132,12 @@ export default function ContactSection() {
                         placeholder="John Doe"
                         value={formData.name}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors shadow-sm"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-slate-300 mb-2">Your Email *</label>
+                      <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Your Email *</label>
                       <input
                         type="email"
                         name="email"
@@ -145,13 +145,13 @@ export default function ContactSection() {
                         placeholder="john@example.com"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                        className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors shadow-sm"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-2">Subject *</label>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Subject *</label>
                     <input
                       type="text"
                       name="subject"
@@ -159,12 +159,12 @@ export default function ContactSection() {
                       placeholder="Project Inquiry / Job Opportunity"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors shadow-sm"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-2">Message *</label>
+                    <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">Message *</label>
                     <textarea
                       name="message"
                       rows={5}
@@ -172,7 +172,7 @@ export default function ContactSection() {
                       placeholder="Tell me about your project scope, timeline, or requirements..."
                       value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none shadow-sm"
                     />
                   </div>
 

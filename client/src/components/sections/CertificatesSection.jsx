@@ -48,22 +48,22 @@ export default function CertificatesSection() {
               <GlassCard className="h-full flex flex-col justify-between space-y-4">
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                    <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400">
                       <Award className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-semibold text-slate-400 flex items-center gap-1">
+                    <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
                       <Calendar className="w-3 h-3" /> {cert.issueDate}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-bold text-white leading-snug">{cert.title}</h3>
-                  <p className="text-xs text-indigo-400 font-medium">{cert.issuer}</p>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white leading-snug">{cert.title}</h3>
+                  <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">{cert.issuer}</p>
                 </div>
 
                 {cert.image && (
                   <div
                     onClick={() => setSelectedCert(cert)}
-                    className="relative h-36 rounded-xl overflow-hidden cursor-pointer group border border-slate-800"
+                    className="relative h-36 rounded-xl overflow-hidden cursor-pointer group border border-slate-200 dark:border-slate-800"
                   >
                     <img
                       src={cert.image}
@@ -81,7 +81,7 @@ export default function CertificatesSection() {
                     href={formatUrl(cert.credentialUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white flex items-center justify-center space-x-2 transition-colors"
+                    className="w-full py-2 rounded-xl bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white flex items-center justify-center space-x-2 transition-colors"
                   >
                     <span>Verify Credential</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -109,18 +109,18 @@ export default function CertificatesSection() {
               >
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white"
+                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-900 dark:hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
-                <h3 className="text-xl font-bold text-white">{selectedCert.title}</h3>
-                <p className="text-xs text-indigo-400 font-semibold">{selectedCert.issuer} • {selectedCert.issueDate}</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">{selectedCert.title}</h3>
+                <p className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">{selectedCert.issuer} • {selectedCert.issueDate}</p>
 
                 <img
                   src={selectedCert.image}
                   alt={selectedCert.title}
-                  className="w-full h-72 object-cover rounded-xl border border-slate-800"
+                  className="w-full h-72 object-cover rounded-xl border border-slate-200 dark:border-slate-800"
                 />
               </motion.div>
             </motion.div>

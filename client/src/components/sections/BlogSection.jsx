@@ -58,27 +58,27 @@ export default function BlogSection() {
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <div className="flex items-center space-x-2 text-[10px] text-slate-400">
-                      <Clock className="w-3.5 h-3.5 text-indigo-400" />
+                    <div className="flex items-center space-x-2 text-[10px] text-slate-600 dark:text-slate-400 font-medium">
+                      <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                       <span>{blog.readTime}</span>
                     </div>
-                    <h3 className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors line-clamp-2">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
                       {blog.title}
                     </h3>
-                    <p className="text-xs text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
                       {blog.excerpt}
                     </p>
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-slate-800/80">
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
                     <div className="flex flex-wrap gap-1">
                       {blog.tags && blog.tags.slice(0, 2).map((t) => (
-                        <span key={t} className="text-[10px] text-slate-500">#{t}</span>
+                        <span key={t} className="text-[10px] text-slate-500 font-medium">#{t}</span>
                       ))}
                     </div>
                     <button
                       onClick={() => setSelectedArticle(blog)}
-                      className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+                      className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 flex items-center space-x-1"
                     >
                       <span>Read Article</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -107,25 +107,25 @@ export default function BlogSection() {
               >
                 <button
                   onClick={() => setSelectedArticle(null)}
-                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white"
+                  className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 dark:bg-slate-900 text-slate-500 hover:text-slate-900 dark:hover:text-white"
                 >
                   <X className="w-5 h-5" />
                 </button>
 
                 <div className="space-y-2">
-                  <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-xs font-bold text-indigo-400">
+                  <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-xs font-bold text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                     {selectedArticle.category} • {selectedArticle.readTime}
                   </span>
-                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white">{selectedArticle.title}</h2>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{selectedArticle.title}</h2>
                 </div>
 
                 <img
                   src={selectedArticle.coverImage}
                   alt={selectedArticle.title}
-                  className="w-full h-64 object-cover rounded-2xl border border-slate-800"
+                  className="w-full h-64 object-cover rounded-2xl border border-slate-200 dark:border-slate-800"
                 />
 
-                <div className="prose prose-invert max-w-none text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
+                <div className="prose dark:prose-invert max-w-none text-slate-800 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">
                   {selectedArticle.content}
                 </div>
               </motion.div>
