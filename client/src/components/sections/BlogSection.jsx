@@ -26,7 +26,7 @@ export default function BlogSection() {
   }, []);
 
   return (
-    <section id="blog" className="py-24 relative z-10 bg-slate-950/40">
+    <section id="blog" className="py-24 relative z-10 bg-slate-100/50 dark:bg-slate-950/40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
           badge="Technical Writing"
@@ -58,14 +58,14 @@ export default function BlogSection() {
 
                 <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <div className="flex items-center space-x-2 text-[10px] text-slate-600 dark:text-slate-400 font-medium">
+                    <div className="flex items-center space-x-2 text-[10px] text-slate-600 dark:text-slate-400 font-semibold">
                       <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                       <span>{blog.readTime}</span>
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-2">
                       {blog.title}
                     </h3>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                    <p className="text-xs text-slate-700 dark:text-slate-400 line-clamp-3 leading-relaxed font-medium">
                       {blog.excerpt}
                     </p>
                   </div>

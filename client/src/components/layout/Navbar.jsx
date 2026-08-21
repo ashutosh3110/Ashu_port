@@ -77,7 +77,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Actions (Theme, Cursor, Admin) */}
+        {/* Actions (Cursor, Admin) */}
         <div className="hidden sm:flex items-center space-x-3">
           {/* Custom Cursor Toggle */}
           <button
@@ -92,15 +92,6 @@ export default function Navbar() {
             <MousePointer className="w-4 h-4" />
           </button>
 
-          {/* Dark / Light Toggle */}
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle Theme"
-            className="p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-900 transition-all duration-200 shadow-sm"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-          </button>
-
           {/* Admin Panel Button */}
           <Link
             to={isAdmin ? '/admin/dashboard' : '/admin/login'}
@@ -113,13 +104,6 @@ export default function Navbar() {
 
         {/* Mobile Menu Trigger */}
         <div className="flex sm:hidden items-center space-x-2">
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-          </button>
-
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="p-2 rounded-lg border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"

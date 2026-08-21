@@ -32,7 +32,7 @@ export default function SectionTitle({ badge, title, highlight, subtitle }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-base sm:text-lg text-slate-600 dark:text-slate-400 font-normal max-w-2xl mx-auto"
+          className="text-base sm:text-lg text-slate-700 dark:text-slate-300 font-medium max-w-2xl mx-auto"
         >
           {subtitle}
         </motion.p>

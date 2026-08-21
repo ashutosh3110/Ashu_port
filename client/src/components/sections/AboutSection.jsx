@@ -10,25 +10,25 @@ export default function AboutSection() {
       icon: Code,
       title: 'Frontend Engineering',
       desc: 'Building lightning-fast, reactive single-page applications using React 19, Next.js, and Tailwind CSS.',
-      color: 'text-indigo-400',
+      color: 'text-indigo-600 dark:text-indigo-400',
     },
     {
       icon: Server,
       title: 'Backend & Microservices',
       desc: 'Architecting RESTful & GraphQL APIs with Express.js, JWT security, and scalable Node.js event loops.',
-      color: 'text-purple-400',
+      color: 'text-purple-600 dark:text-purple-400',
     },
     {
       icon: Database,
       title: 'Database Architecture',
       desc: 'Designing optimized MongoDB collections, Mongoose indexing, PostgreSQL schemas, and Redis caching.',
-      color: 'text-pink-400',
+      color: 'text-pink-600 dark:text-pink-400',
     },
     {
       icon: Cloud,
       title: 'DevOps & Deployment',
       desc: 'Streamlining CI/CD pipelines, Docker containerization, AWS hosting, and Cloudinary media optimization.',
-      color: 'text-cyan-400',
+      color: 'text-cyan-600 dark:text-cyan-400',
     },
   ];
 
@@ -65,11 +65,11 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">Ashutosh Banke</h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 font-medium">Senior MERN Stack Engineer</p>
+                  <p className="text-sm text-slate-700 dark:text-slate-400 font-semibold">Senior MERN Stack Engineer</p>
                 </div>
               </div>
 
-              <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <p className="text-sm text-slate-800 dark:text-slate-300 leading-relaxed font-medium">
                 I specialize in turning complex requirements into clean, scalable software architecture. With deep expertise across the entire MERN stack, I build systems that perform exceptionally under high load while delivering smooth user experiences.
               </p>
 
@@ -77,7 +77,7 @@ export default function AboutSection() {
                 {stats.map((s, idx) => (
                   <div key={idx} className="p-4 rounded-xl bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
                     <div className="text-2xl font-extrabold gradient-text">{s.value}</div>
-                    <div className="text-xs text-slate-600 dark:text-slate-400 font-semibold mt-1">{s.label}</div>
+                    <div className="text-xs text-slate-700 dark:text-slate-400 font-bold mt-1">{s.label}</div>
                   </div>
                 ))}
               </div>
@@ -101,7 +101,7 @@ export default function AboutSection() {
                       <IconComp className="w-6 h-6" />
                     </div>
                     <h4 className="text-lg font-bold text-slate-900 dark:text-white">{item.title}</h4>
-                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+                    <p className="text-xs text-slate-700 dark:text-slate-400 leading-relaxed font-medium">{item.desc}</p>
                   </GlassCard>
                 </motion.div>
               );

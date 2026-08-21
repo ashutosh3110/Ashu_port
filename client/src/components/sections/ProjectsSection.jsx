@@ -117,7 +117,7 @@ export default function ProjectsSection() {
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-2">
                         {project.title}
                       </h3>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                      <p className="text-xs text-slate-700 dark:text-slate-400 line-clamp-3 leading-relaxed font-medium">
                         {project.description}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export default function ProjectsSection() {
                     <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800/80">
                       <button
                         onClick={() => setSelectedProjectModal(project)}
-                        className="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center space-x-1"
+                        className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 flex items-center space-x-1"
                       >
                         <span>View Details</span>
                       </button>

@@ -27,7 +27,7 @@ export default function FAQSection() {
   ];
 
   return (
-    <section className="py-24 relative z-10 bg-slate-950/40">
+    <section className="py-24 relative z-10 bg-slate-100/50 dark:bg-slate-950/40">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionTitle
           badge="FAQ"
@@ -47,12 +47,12 @@ export default function FAQSection() {
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <HelpCircle className="w-5 h-5 text-indigo-400 shrink-0" />
-                    <h3 className="text-base font-bold text-white">{faq.question}</h3>
+                    <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">{faq.question}</h3>
                   </div>
                   <ChevronDown
-                    className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${
-                      isOpen ? 'rotate-180 text-indigo-400' : ''
+                    className={`w-5 h-5 text-slate-500 dark:text-slate-400 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-indigo-600 dark:text-indigo-400' : ''
                     }`}
                   />
                 </div>
@@ -65,7 +65,7 @@ export default function FAQSection() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-xs text-slate-300 pt-4 leading-relaxed border-t border-slate-800/80 mt-4">
+                      <p className="text-xs text-slate-700 dark:text-slate-300 pt-4 leading-relaxed border-t border-slate-200 dark:border-slate-800/80 mt-4 font-medium">
                         {faq.answer}
                       </p>
                     </motion.div>

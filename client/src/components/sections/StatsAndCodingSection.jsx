@@ -9,7 +9,7 @@ export default function StatsAndCodingSection() {
   const generateContributionCells = () => {
     const cells = [];
     for (let i = 0; i < 112; i++) {
-      const levels = ['bg-slate-900', 'bg-emerald-900/60', 'bg-emerald-700/80', 'bg-emerald-500', 'bg-emerald-400'];
+      const levels = ['bg-slate-200 dark:bg-slate-900', 'bg-emerald-200 dark:bg-emerald-900/60', 'bg-emerald-400 dark:bg-emerald-700/80', 'bg-emerald-500', 'bg-emerald-600 dark:bg-emerald-400'];
       const randomIndex = Math.floor(Math.random() * levels.length);
       cells.push(levels[randomIndex]);
     }
@@ -34,19 +34,19 @@ export default function StatsAndCodingSection() {
             <GlassCard className="space-y-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                  <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
                     <Github className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="text-base font-bold text-white">GitHub Contributions</h3>
-                    <p className="text-xs text-slate-400">1,248 commits in the past year</p>
+                    <h3 className="text-base font-bold text-slate-900 dark:text-white">GitHub Contributions</h3>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">1,248 commits in the past year</p>
                   </div>
                 </div>
                 <a
                   href="https://github.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-semibold text-indigo-400 hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
                 >
                   <span>@ashutosh-banke</span>
                   <ExternalLink className="w-3 h-3" />
@@ -54,23 +54,23 @@ export default function StatsAndCodingSection() {
               </div>
 
               {/* Grid Heatmap */}
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-900 overflow-x-auto">
+              <div className="p-4 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-900 overflow-x-auto shadow-inner">
                 <div className="grid grid-rows-7 grid-flow-col gap-1.5 min-w-[500px]">
                   {contributionCells.map((levelClass, i) => (
                     <div
                       key={i}
-                      className={`w-3 h-3 rounded-sm ${levelClass} hover:ring-1 hover:ring-emerald-300 transition-all`}
+                      className={`w-3 h-3 rounded-sm ${levelClass} hover:ring-1 hover:ring-emerald-400 transition-all`}
                     />
                   ))}
                 </div>
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-3">
+                <div className="flex items-center justify-between text-[10px] text-slate-600 dark:text-slate-500 pt-3 font-semibold">
                   <span>Less</span>
                   <div className="flex items-center gap-1">
-                    <span className="w-2.5 h-2.5 rounded-sm bg-slate-900"></span>
-                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-900/60"></span>
-                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-700/80"></span>
+                    <span className="w-2.5 h-2.5 rounded-sm bg-slate-200 dark:bg-slate-900"></span>
+                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-200 dark:bg-emerald-900/60"></span>
+                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400 dark:bg-emerald-700/80"></span>
                     <span className="w-2.5 h-2.5 rounded-sm bg-emerald-500"></span>
-                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400"></span>
+                    <span className="w-2.5 h-2.5 rounded-sm bg-emerald-600 dark:bg-emerald-400"></span>
                   </div>
                   <span>More</span>
                 </div>
@@ -82,27 +82,27 @@ export default function StatsAndCodingSection() {
           <div className="lg:col-span-5 space-y-6">
             <GlassCard className="space-y-4">
               <div className="flex items-center space-x-3">
-                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">
                   <Terminal className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">LeetCode Stats</h3>
-                  <p className="text-xs text-slate-400">Top 5% Global Rank</p>
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">LeetCode Stats</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Top 5% Global Rank</p>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-3 pt-2">
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-                  <div className="text-xl font-bold text-emerald-400">280+</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Easy</div>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+                  <div className="text-xl font-bold text-emerald-600 dark:text-emerald-400">280+</div>
+                  <div className="text-[10px] text-slate-700 dark:text-slate-400 font-semibold">Easy</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-                  <div className="text-xl font-bold text-amber-400">320+</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Medium</div>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+                  <div className="text-xl font-bold text-amber-600 dark:text-amber-400">320+</div>
+                  <div className="text-[10px] text-slate-700 dark:text-slate-400 font-semibold">Medium</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-                  <div className="text-xl font-bold text-rose-400">75+</div>
-                  <div className="text-[10px] text-slate-400 font-medium">Hard</div>
+                <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
+                  <div className="text-xl font-bold text-rose-600 dark:text-rose-400">75+</div>
+                  <div className="text-[10px] text-slate-700 dark:text-slate-400 font-semibold">Hard</div>
                 </div>
               </div>
             </GlassCard>
