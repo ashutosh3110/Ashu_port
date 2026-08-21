@@ -4,23 +4,22 @@ import { BookOpen, Clock, Tag, X, ArrowRight } from 'lucide-react';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
+import { FALLBACK_BLOGS } from '../../data/fallbackData';
 
 export default function BlogSection() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState(FALLBACK_BLOGS);
+  const [loading, setLoading] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
         const res = await API.get('/blogs');
-        if (res.data.success) {
+        if (res.data.success && res.data.data && res.data.data.length > 0) {
           setBlogs(res.data.data);
         }
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error('Blogs background fetch fallback used:', err.message);
       }
     };
     fetchBlogs();

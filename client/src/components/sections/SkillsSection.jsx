@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
+import { FALLBACK_SKILLS } from '../../data/fallbackData';
 import {
   SiReact, SiTypescript, SiTailwindcss, SiFramer, SiHtml5,
   SiNodedotjs, SiExpress, SiJsonwebtokens, SiMongodb,
@@ -13,8 +14,8 @@ import { FaAws } from 'react-icons/fa';
 
 export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState('Frontend');
-  const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [skills, setSkills] = useState(FALLBACK_SKILLS);
+  const [loading, setLoading] = useState(false);
 
   const categories = ['Frontend', 'Backend', 'Database', 'DevOps', 'Tools'];
 
@@ -30,13 +31,11 @@ export default function SkillsSection() {
     const fetchSkills = async () => {
       try {
         const res = await API.get('/skills');
-        if (res.data.success) {
+        if (res.data.success && res.data.data && res.data.data.length > 0) {
           setSkills(res.data.data);
         }
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error('Skills background fetch fallback used:', err.message);
       }
     };
     fetchSkills();

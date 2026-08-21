@@ -4,22 +4,21 @@ import { Briefcase, GraduationCap, Calendar, MapPin, CheckCircle2 } from 'lucide
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
+import { FALLBACK_EXPERIENCES } from '../../data/fallbackData';
 
 export default function ExperienceSection() {
-  const [experiences, setExperiences] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [experiences, setExperiences] = useState(FALLBACK_EXPERIENCES);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchExperiences = async () => {
       try {
         const res = await API.get('/experience');
-        if (res.data.success) {
+        if (res.data.success && res.data.data && res.data.data.length > 0) {
           setExperiences(res.data.data);
         }
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error('Experience background fetch fallback used:', err.message);
       }
     };
     fetchExperiences();

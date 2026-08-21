@@ -7,10 +7,11 @@ import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
 import { formatUrl } from '../../utils/formatUrl';
 import { addLog } from '../../utils/logger';
+import { FALLBACK_PROJECTS } from '../../data/fallbackData';
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
+  const [loading, setLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProjectModal, setSelectedProjectModal] = useState(null);
@@ -21,13 +22,11 @@ export default function ProjectsSection() {
     const fetchProjects = async () => {
       try {
         const res = await API.get('/projects');
-        if (res.data.success) {
+        if (res.data.success && res.data.data && res.data.data.length > 0) {
           setProjects(res.data.data);
         }
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error('Projects background fetch fallback used:', err.message);
       }
     };
     fetchProjects();

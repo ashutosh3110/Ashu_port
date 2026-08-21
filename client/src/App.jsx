@@ -13,6 +13,8 @@ import ParticleBg from './components/layout/ParticleBg';
 import ScrollProgress from './components/layout/ScrollProgress';
 import ScrollToTop from './components/layout/ScrollToTop';
 import MobileDebugConsole from './components/common/MobileDebugConsole';
+import InitialLoader from './components/layout/InitialLoader';
+import API from './services/api';
 
 import HeroSection from './components/sections/HeroSection';
 import AboutSection from './components/sections/AboutSection';
@@ -61,11 +63,17 @@ function PortfolioMain() {
 }
 
 export default function App() {
+  React.useEffect(() => {
+    // Silent background ping to wake up Render backend instantly on site visit
+    API.get('/health').catch(() => {});
+  }, []);
+
   return (
     <ThemeProvider>
       <AuthProvider>
         <Router>
           <div className="relative min-h-screen">
+            <InitialLoader />
             <CustomCursor />
             <ParticleBg />
             <ScrollProgress />

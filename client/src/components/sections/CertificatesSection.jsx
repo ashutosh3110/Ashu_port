@@ -5,23 +5,22 @@ import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
 import { formatUrl } from '../../utils/formatUrl';
+import { FALLBACK_CERTIFICATES } from '../../data/fallbackData';
 
 export default function CertificatesSection() {
-  const [certificates, setCertificates] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [certificates, setCertificates] = useState(FALLBACK_CERTIFICATES);
+  const [loading, setLoading] = useState(false);
   const [selectedCert, setSelectedCert] = useState(null);
 
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
         const res = await API.get('/certificates');
-        if (res.data.success) {
+        if (res.data.success && res.data.data && res.data.data.length > 0) {
           setCertificates(res.data.data);
         }
       } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
+        console.error('Certificates background fetch fallback used:', err.message);
       }
     };
     fetchCertificates();
