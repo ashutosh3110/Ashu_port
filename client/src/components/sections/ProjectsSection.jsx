@@ -5,6 +5,7 @@ import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
+import { formatUrl } from '../../utils/formatUrl';
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
@@ -145,10 +146,10 @@ export default function ProjectsSection() {
                       <div className="flex items-center space-x-2">
                         {project.githubLink && (
                           <a
-                            href={project.githubLink}
+                            href={formatUrl(project.githubLink)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
+                            className="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
                             title="GitHub Source"
                           >
                             <Github className="w-4 h-4" />
@@ -156,10 +157,10 @@ export default function ProjectsSection() {
                         )}
                         {project.liveLink && (
                           <a
-                            href={project.liveLink}
+                            href={formatUrl(project.liveLink)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-2 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 transition-colors"
+                            className="p-2.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 transition-colors"
                             title="Live Demo"
                           >
                             <ExternalLink className="w-4 h-4" />
@@ -226,7 +227,7 @@ export default function ProjectsSection() {
                 <div className="flex items-center space-x-4 pt-4 border-t border-slate-800">
                   {selectedProjectModal.liveLink && (
                     <a
-                      href={selectedProjectModal.liveLink}
+                      href={formatUrl(selectedProjectModal.liveLink)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center space-x-2"
@@ -237,7 +238,7 @@ export default function ProjectsSection() {
                   )}
                   {selectedProjectModal.githubLink && (
                     <a
-                      href={selectedProjectModal.githubLink}
+                      href={formatUrl(selectedProjectModal.githubLink)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold text-xs flex items-center space-x-2"

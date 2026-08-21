@@ -7,8 +7,21 @@ export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
 
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
   useEffect(() => {
-    if (!cursorEnabled) {
+    const checkTouch = () => {
+      setIsTouchDevice(
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0 ||
+        window.matchMedia('(pointer: coarse)').matches
+      );
+    };
+    checkTouch();
+  }, []);
+
+  useEffect(() => {
+    if (!cursorEnabled || isTouchDevice) {
       document.body.classList.remove('custom-cursor-active');
       return;
     }
@@ -41,9 +54,9 @@ export default function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
       document.body.classList.remove('custom-cursor-active');
     };
-  }, [cursorEnabled]);
+  }, [cursorEnabled, isTouchDevice]);
 
-  if (!cursorEnabled) return null;
+  if (!cursorEnabled || isTouchDevice) return null;
 
   return (
     <>

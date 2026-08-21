@@ -4,6 +4,7 @@ import { Award, ExternalLink, Calendar, X } from 'lucide-react';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
 import API from '../../services/api';
+import { formatUrl } from '../../utils/formatUrl';
 
 export default function CertificatesSection() {
   const [certificates, setCertificates] = useState([]);
@@ -78,7 +79,7 @@ export default function CertificatesSection() {
 
                 {cert.credentialUrl && (
                   <a
-                    href={cert.credentialUrl}
+                    href={formatUrl(cert.credentialUrl)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white flex items-center justify-center space-x-2 transition-colors"
