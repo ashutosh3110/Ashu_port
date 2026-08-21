@@ -6,6 +6,7 @@ import GlassCard from '../common/GlassCard';
 import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
 import { formatUrl } from '../../utils/formatUrl';
+import { addLog } from '../../utils/logger';
 
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
@@ -149,6 +150,10 @@ export default function ProjectsSection() {
                             href={formatUrl(project.githubLink)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addLog('INFO', 'LINK', `GitHub Link clicked: ${project.title} -> ${formatUrl(project.githubLink)}`);
+                            }}
                             className="p-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-800 transition-colors"
                             title="GitHub Source"
                           >
@@ -160,6 +165,10 @@ export default function ProjectsSection() {
                             href={formatUrl(project.liveLink)}
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              addLog('INFO', 'LINK', `Live Link clicked: ${project.title} -> ${formatUrl(project.liveLink)}`);
+                            }}
                             className="p-2.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-400 border border-indigo-500/30 transition-colors"
                             title="Live Demo"
                           >
@@ -230,6 +239,10 @@ export default function ProjectsSection() {
                       href={formatUrl(selectedProjectModal.liveLink)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addLog('INFO', 'LINK', `Modal Live Preview clicked: ${selectedProjectModal.title} -> ${formatUrl(selectedProjectModal.liveLink)}`);
+                      }}
                       className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center space-x-2"
                     >
                       <ExternalLink className="w-4 h-4" />
@@ -241,6 +254,10 @@ export default function ProjectsSection() {
                       href={formatUrl(selectedProjectModal.githubLink)}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addLog('INFO', 'LINK', `Modal View Code clicked: ${selectedProjectModal.title} -> ${formatUrl(selectedProjectModal.githubLink)}`);
+                      }}
                       className="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 font-semibold text-xs flex items-center space-x-2"
                     >
                       <Github className="w-4 h-4" />

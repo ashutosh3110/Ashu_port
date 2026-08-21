@@ -12,6 +12,7 @@ import CustomCursor from './components/layout/CustomCursor';
 import ParticleBg from './components/layout/ParticleBg';
 import ScrollProgress from './components/layout/ScrollProgress';
 import ScrollToTop from './components/layout/ScrollToTop';
+import MobileDebugConsole from './components/common/MobileDebugConsole';
 
 import HeroSection from './components/sections/HeroSection';
 import AboutSection from './components/sections/AboutSection';
@@ -68,6 +69,7 @@ export default function App() {
             <CustomCursor />
             <ParticleBg />
             <ScrollProgress />
+            <MobileDebugConsole />
 
             <Routes>
               <Route path="/" element={<PortfolioMain />} />

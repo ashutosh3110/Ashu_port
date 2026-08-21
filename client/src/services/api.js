@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addLog } from '../utils/logger';
 
 const getBaseURL = () => {
   if (import.meta.env.VITE_API_URL) {
@@ -21,6 +22,11 @@ const API = axios.create({
 // Add Authorization Bearer Token header to every request if present
 API.interceptors.request.use(
   (config) => {
+    addLog('INFO', 'NETWORK', `API Req: ${config.method?.toUpperCase()} ${config.url}`, {
+      fullUrl: `${config.baseURL}${config.url}`,
+      headers: config.headers,
+    });
+
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
       const { token } = JSON.parse(userInfo);
@@ -30,13 +36,30 @@ API.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => {
+    addLog('ERROR', 'NETWORK', `API Req Error: ${error.message}`, error);
+    return Promise.reject(error);
+  }
 );
 
 // Response interceptor to handle expired / invalid tokens
 API.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    addLog('SUCCESS', 'NETWORK', `API Res: ${response.config.method?.toUpperCase()} ${response.config.url} [${response.status}]`, {
+      dataCount: Array.isArray(response.data?.data) ? response.data.data.length : null,
+      status: response.status,
+    });
+    return response;
+  },
   (error) => {
+    const status = error.response ? error.response.status : 'NO_RESPONSE';
+    const errorMsg = error.response?.data?.message || error.message || 'Network Request Failed';
+    addLog('ERROR', 'NETWORK', `API Res Error [${status}]: ${errorMsg}`, {
+      url: error.config?.url,
+      code: error.code,
+      response: error.response?.data,
+    });
+
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('userInfo');
       if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
