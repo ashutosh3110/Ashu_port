@@ -17,14 +17,19 @@ router.post('/', protect, admin, upload.single('image'), async (req, res) => {
       process.env.CLOUDINARY_API_SECRET && process.env.CLOUDINARY_API_SECRET.trim() !== '';
 
     if (hasCloudinary) {
-      const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'portfolio',
-      });
-      return res.json({
-        success: true,
-        imageUrl: result.secure_url,
-        storedOn: 'cloudinary',
-      });
+      try {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          folder: 'portfolio',
+        });
+        return res.json({
+          success: true,
+          imageUrl: result.secure_url,
+          storedOn: 'cloudinary',
+        });
+      } catch (cloudErr) {
+        console.error('Cloudinary upload error:', cloudErr.message);
+        // If Cloudinary fails (e.g., status 403 invalid credentials), log error and fall back to local storage below
+      }
     }
 
     // Local server storage fallback (saves in server/uploads folder)
@@ -37,6 +42,7 @@ router.post('/', protect, admin, upload.single('image'), async (req, res) => {
       relativePath: relativePath,
       filename: req.file.filename,
       storedOn: 'local_server',
+      note: hasCloudinary ? 'Cloudinary failed/unauthorized, saved to local storage' : undefined
     });
   } catch (error) {
     console.error('File Upload Error:', error);

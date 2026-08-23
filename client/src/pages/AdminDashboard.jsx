@@ -152,12 +152,10 @@ export default function AdminDashboard() {
 
     setUploading(true);
     try {
-      const res = await API.post('/upload', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await API.post('/upload', data);
       if (res.data.success) {
         setProfileForm((prev) => ({ ...prev, avatar: res.data.imageUrl }));
-        toast.success('Photo uploaded and stored on server successfully!');
+        toast.success('Photo uploaded successfully!');
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'File upload failed');
@@ -175,12 +173,10 @@ export default function AdminDashboard() {
 
     setModalUploading(true);
     try {
-      const res = await API.post('/upload', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const res = await API.post('/upload', data);
       if (res.data.success) {
         setFormData((prev) => ({ ...prev, [fieldKey]: res.data.imageUrl }));
-        toast.success('Image uploaded and stored on server!');
+        toast.success('Image uploaded successfully!');
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'File upload failed');
