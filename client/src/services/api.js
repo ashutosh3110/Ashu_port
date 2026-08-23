@@ -22,6 +22,11 @@ const API = axios.create({
 // Add Authorization Bearer Token header to every request if present
 API.interceptors.request.use(
   (config) => {
+    // If request data is FormData, remove default application/json header so Axios auto-generates multipart/form-data with boundary
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
+
     addLog('INFO', 'NETWORK', `API Req: ${config.method?.toUpperCase()} ${config.url}`, {
       fullUrl: `${config.baseURL}${config.url}`,
       headers: config.headers,

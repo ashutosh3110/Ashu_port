@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  FolderGit2, Cpu, Briefcase, Award, BookOpen, Mail, Eye, Plus, Trash2, Edit, LogOut, Home, X, Save, Upload
+  FolderGit2, Cpu, Briefcase, Award, BookOpen, Mail, Eye, Plus, Trash2, Edit, LogOut, Home, X, Save, Upload, Cloud
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
@@ -12,6 +12,17 @@ import API from '../services/api';
 export default function AdminDashboard() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleTestCloudinary = async () => {
+    try {
+      const res = await API.get('/upload/test-cloudinary');
+      if (res.data.success) {
+        toast.success(`Cloudinary Connected! Cloud Name: ${res.data.cloudName}`);
+      }
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Cloudinary test failed. Check server env vars.');
+    }
+  };
 
   const [activeTab, setActiveTab] = useState('projects');
   const [stats, setStats] = useState({ projects: 0, blogs: 0, skills: 0, messages: 0, visitors: 0 });
@@ -214,6 +225,14 @@ export default function AdminDashboard() {
           </div>
 
           <div className="flex items-center space-x-3">
+            <button
+              onClick={handleTestCloudinary}
+              className="px-3.5 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-xs font-semibold text-cyan-400 hover:bg-cyan-500/20 flex items-center space-x-1.5"
+              title="Test Cloudinary Connection & API Keys"
+            >
+              <Cloud className="w-4 h-4" />
+              <span>Test Cloudinary</span>
+            </button>
             <button
               onClick={() => navigate('/')}
               className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs font-semibold text-slate-300 hover:text-white flex items-center space-x-1.5"

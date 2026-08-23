@@ -50,5 +50,38 @@ router.post('/', protect, admin, upload.single('image'), async (req, res) => {
   }
 });
 
+// @desc    Test Cloudinary connection & credentials
+// @route   GET /api/upload/test-cloudinary
+// @access  Private/Admin
+router.get('/test-cloudinary', protect, admin, async (req, res) => {
+  try {
+    const hasCloudinary = 
+      process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_CLOUD_NAME.trim() !== '' &&
+      process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_KEY.trim() !== '' &&
+      process.env.CLOUDINARY_API_SECRET && process.env.CLOUDINARY_API_SECRET.trim() !== '';
+
+    if (!hasCloudinary) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Cloudinary credentials (CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET) are missing or empty on the server env.' 
+      });
+    }
+
+    const pingRes = await cloudinary.api.ping();
+    return res.json({
+      success: true,
+      message: 'Cloudinary is properly connected and working!',
+      ping: pingRes,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: `Cloudinary Connection Test Failed: ${error.message}`,
+      cloudName: process.env.CLOUDINARY_CLOUD_NAME,
+    });
+  }
+});
+
 module.exports = router;
 
