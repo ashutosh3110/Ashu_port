@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
+import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
 import { FALLBACK_SKILLS } from '../../data/fallbackData';
 import {
@@ -14,8 +15,8 @@ import { FaAws } from 'react-icons/fa';
 
 export default function SkillsSection() {
   const [activeCategory, setActiveCategory] = useState('Frontend');
-  const [skills, setSkills] = useState(FALLBACK_SKILLS);
-  const [loading, setLoading] = useState(false);
+  const [skills, setSkills] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const categories = ['Frontend', 'Backend', 'Database', 'DevOps', 'Tools'];
 
@@ -29,13 +30,19 @@ export default function SkillsSection() {
 
   useEffect(() => {
     const fetchSkills = async () => {
+      setLoading(true);
       try {
         const res = await API.get('/skills');
         if (res.data.success && res.data.data && res.data.data.length > 0) {
           setSkills(res.data.data);
+        } else {
+          setSkills(FALLBACK_SKILLS);
         }
       } catch (err) {
-        console.error('Skills background fetch fallback used:', err.message);
+        console.error('Skills fetch fallback used:', err.message);
+        setSkills(FALLBACK_SKILLS);
+      } finally {
+        setLoading(false);
       }
     };
     fetchSkills();
@@ -71,7 +78,10 @@ export default function SkillsSection() {
         </div>
 
         {/* Skills Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {loading ? (
+          <LoadingSkeleton type="skill" count={6} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredSkills.map((skill, index) => {
             const IconComponent = iconMap[skill.icon] || SiReact;
             return (
@@ -107,6 +117,7 @@ export default function SkillsSection() {
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );

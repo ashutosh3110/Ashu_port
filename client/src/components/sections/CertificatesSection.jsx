@@ -3,24 +3,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Award, ExternalLink, Calendar, X } from 'lucide-react';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
+import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
 import { formatUrl } from '../../utils/formatUrl';
 import { FALLBACK_CERTIFICATES } from '../../data/fallbackData';
 
 export default function CertificatesSection() {
-  const [certificates, setCertificates] = useState(FALLBACK_CERTIFICATES);
-  const [loading, setLoading] = useState(false);
+  const [certificates, setCertificates] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCert, setSelectedCert] = useState(null);
 
   useEffect(() => {
     const fetchCertificates = async () => {
+      setLoading(true);
       try {
         const res = await API.get('/certificates');
         if (res.data.success && res.data.data && res.data.data.length > 0) {
           setCertificates(res.data.data);
+        } else {
+          setCertificates(FALLBACK_CERTIFICATES);
         }
       } catch (err) {
-        console.error('Certificates background fetch fallback used:', err.message);
+        console.error('Certificates fetch fallback used:', err.message);
+        setCertificates(FALLBACK_CERTIFICATES);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCertificates();
@@ -36,7 +43,10 @@ export default function CertificatesSection() {
           subtitle="Industry accredited certifications from AWS, MongoDB, Meta, and leading tech institutions."
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {loading ? (
+          <LoadingSkeleton count={3} />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {certificates.map((cert, index) => (
             <motion.div
               key={cert._id || cert.title}
@@ -91,6 +101,7 @@ export default function CertificatesSection() {
             </motion.div>
           ))}
         </div>
+        )}
 
         {/* Certificate Modal */}
         <AnimatePresence>

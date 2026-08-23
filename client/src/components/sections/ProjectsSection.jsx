@@ -10,8 +10,8 @@ import { addLog } from '../../utils/logger';
 import { FALLBACK_PROJECTS } from '../../data/fallbackData';
 
 export default function ProjectsSection() {
-  const [projects, setProjects] = useState(FALLBACK_PROJECTS);
-  const [loading, setLoading] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProjectModal, setSelectedProjectModal] = useState(null);
@@ -20,13 +20,19 @@ export default function ProjectsSection() {
 
   useEffect(() => {
     const fetchProjects = async () => {
+      setLoading(true);
       try {
         const res = await API.get('/projects');
         if (res.data.success && res.data.data && res.data.data.length > 0) {
           setProjects(res.data.data);
+        } else {
+          setProjects(FALLBACK_PROJECTS);
         }
       } catch (err) {
-        console.error('Projects background fetch fallback used:', err.message);
+        console.error('Projects fetch fallback used:', err.message);
+        setProjects(FALLBACK_PROJECTS);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProjects();

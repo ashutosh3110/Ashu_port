@@ -3,22 +3,29 @@ import { motion } from 'framer-motion';
 import { Briefcase, GraduationCap, Calendar, MapPin, CheckCircle2 } from 'lucide-react';
 import SectionTitle from '../common/SectionTitle';
 import GlassCard from '../common/GlassCard';
+import LoadingSkeleton from '../common/LoadingSkeleton';
 import API from '../../services/api';
 import { FALLBACK_EXPERIENCES } from '../../data/fallbackData';
 
 export default function ExperienceSection() {
-  const [experiences, setExperiences] = useState(FALLBACK_EXPERIENCES);
-  const [loading, setLoading] = useState(false);
+  const [experiences, setExperiences] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchExperiences = async () => {
+      setLoading(true);
       try {
         const res = await API.get('/experience');
         if (res.data.success && res.data.data && res.data.data.length > 0) {
           setExperiences(res.data.data);
+        } else {
+          setExperiences(FALLBACK_EXPERIENCES);
         }
       } catch (err) {
-        console.error('Experience background fetch fallback used:', err.message);
+        console.error('Experience fetch fallback used:', err.message);
+        setExperiences(FALLBACK_EXPERIENCES);
+      } finally {
+        setLoading(false);
       }
     };
     fetchExperiences();
@@ -35,7 +42,10 @@ export default function ExperienceSection() {
         />
 
         {/* Timeline Container */}
-        <div className="relative border-l border-indigo-500/30 ml-4 sm:ml-32 space-y-12 pl-6 sm:pl-10">
+        {loading ? (
+          <LoadingSkeleton type="timeline" count={3} />
+        ) : (
+          <div className="relative border-l border-indigo-500/30 ml-4 sm:ml-32 space-y-12 pl-6 sm:pl-10">
           {experiences.map((item, index) => {
             const isEducation = item.type === 'Education';
             return (
@@ -100,6 +110,7 @@ export default function ExperienceSection() {
             );
           })}
         </div>
+        )}
       </div>
     </section>
   );
