@@ -14,6 +14,27 @@ const notify = () => {
   listeners.forEach((listener) => listener([...logs]));
 };
 
+const safeStringify = (val, pretty = false) => {
+  if (val === null || val === undefined) return String(val);
+  if (typeof val !== 'object') return String(val);
+  try {
+    const seen = new WeakSet();
+    return JSON.stringify(
+      val,
+      (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+          if (seen.has(value)) return '[Circular]';
+          seen.add(value);
+        }
+        return value;
+      },
+      pretty ? 2 : undefined
+    );
+  } catch (e) {
+    return String(val);
+  }
+};
+
 export const addLog = (type, category, message, details = null) => {
   const logItem = {
     id: Date.now() + Math.random().toString(36).substr(2, 5),
@@ -21,7 +42,7 @@ export const addLog = (type, category, message, details = null) => {
     type, // 'INFO' | 'SUCCESS' | 'WARN' | 'ERROR'
     category, // 'SYSTEM' | 'NETWORK' | 'LINK' | 'CONSOLE'
     message,
-    details: details ? (typeof details === 'object' ? JSON.stringify(details, null, 2) : String(details)) : null,
+    details: details ? safeStringify(details, true) : null,
   };
   logs.unshift(logItem); // newest logs at top
   if (logs.length > 100) logs.pop(); // keep last 100 logs
@@ -43,19 +64,19 @@ if (typeof window !== 'undefined' && !window.__logger_initialized) {
 
   console.log = (...args) => {
     originalConsoleLog.apply(console, args);
-    const msg = args.map((a) => (typeof a === 'object' ? JSON.stringify(a) : String(a))).join(' ');
+    const msg = args.map((a) => safeStringify(a)).join(' ');
     addLog('INFO', 'CONSOLE', msg);
   };
 
   console.warn = (...args) => {
     originalConsoleWarn.apply(console, args);
-    const msg = args.map((a) => (typeof a === 'object' ? JSON.stringify(a) : String(a))).join(' ');
+    const msg = args.map((a) => safeStringify(a)).join(' ');
     addLog('WARN', 'CONSOLE', msg);
   };
 
   console.error = (...args) => {
     originalConsoleError.apply(console, args);
-    const msg = args.map((a) => (typeof a === 'object' ? JSON.stringify(a) : String(a))).join(' ');
+    const msg = args.map((a) => safeStringify(a)).join(' ');
     addLog('ERROR', 'CONSOLE', msg);
   };
 

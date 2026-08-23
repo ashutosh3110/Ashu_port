@@ -11,11 +11,16 @@ export default function CustomCursor() {
 
   useEffect(() => {
     const checkTouch = () => {
-      setIsTouchDevice(
-        'ontouchstart' in window ||
-        navigator.maxTouchPoints > 0 ||
-        window.matchMedia('(pointer: coarse)').matches
-      );
+      try {
+        const isTouch =
+          typeof window !== 'undefined' &&
+          ('ontouchstart' in window ||
+            (navigator && navigator.maxTouchPoints > 0) ||
+            (window.matchMedia && window.matchMedia('(pointer: coarse)').matches));
+        setIsTouchDevice(!!isTouch);
+      } catch (e) {
+        setIsTouchDevice(true); // Default to touch enabled on mobile webviews if detection fails
+      }
     };
     checkTouch();
   }, []);

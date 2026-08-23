@@ -1,12 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import API from '../services/api';
+import { safeStorage } from '../utils/safeStorage';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(() => {
-    const saved = localStorage.getItem('userInfo');
-    return saved ? JSON.parse(saved) : null;
+    const saved = safeStorage.getItem('userInfo');
+    if (!saved) return null;
+    try {
+      return JSON.parse(saved);
+    } catch (e) {
+      return null;
+    }
   });
 
   const [loading, setLoading] = useState(false);
@@ -18,7 +24,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.success) {
         const userData = response.data.user;
         setUser(userData);
-        localStorage.setItem('userInfo', JSON.stringify(userData));
+        safeStorage.setItem('userInfo', JSON.stringify(userData));
         setLoading(false);
         return { success: true };
       }
@@ -33,7 +39,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('userInfo');
+    safeStorage.removeItem('userInfo');
   };
 
   return (

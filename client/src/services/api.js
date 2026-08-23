@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { addLog } from '../utils/logger';
+import { safeStorage } from '../utils/safeStorage';
 
 const getBaseURL = () => {
   if (import.meta.env.VITE_API_URL) {
@@ -7,7 +8,7 @@ const getBaseURL = () => {
   }
   // If hosted live (e.g. Vercel) or opened on mobile via IP
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-    return 'https://portfolio-backend-api.onrender.com/api';
+    return 'https://ashu-port.onrender.com/api';
   }
   return 'http://localhost:5000/api';
 };
@@ -32,12 +33,14 @@ API.interceptors.request.use(
       headers: config.headers,
     });
 
-    const userInfo = localStorage.getItem('userInfo');
+    const userInfo = safeStorage.getItem('userInfo');
     if (userInfo) {
-      const { token } = JSON.parse(userInfo);
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
+      try {
+        const { token } = JSON.parse(userInfo);
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      } catch (e) {}
     }
     return config;
   },
@@ -66,7 +69,7 @@ API.interceptors.response.use(
     });
 
     if (error.response && error.response.status === 401) {
-      localStorage.removeItem('userInfo');
+      safeStorage.removeItem('userInfo');
       if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin') && window.location.pathname !== '/admin/login') {
         window.location.href = '/admin/login';
       }

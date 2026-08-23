@@ -1,12 +1,20 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { safeStorage } from '../utils/safeStorage';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('portfolio_theme');
+    const savedTheme = safeStorage.getItem('portfolio_theme');
     if (savedTheme) return savedTheme;
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'dark'; // Default dark for premium aesthetic
+    try {
+      if (typeof window !== 'undefined' && window.matchMedia) {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'dark';
+      }
+    } catch (e) {
+      // Fallback if matchMedia fails in iOS WKWebView
+    }
+    return 'dark';
   });
 
   const [cursorEnabled, setCursorEnabled] = useState(true);
@@ -18,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
     } else {
       root.classList.remove('dark');
     }
-    localStorage.setItem('portfolio_theme', theme);
+    safeStorage.setItem('portfolio_theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
